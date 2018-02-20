@@ -23,15 +23,93 @@ class Ball {
    this.sAngle = sAngle;
    this.eAngle = eAngle;
    this.cClock = cClock;
- }
+   this.xvel = Math.floor((Math.random() * 5) + 1);
+   this.yvel = Math.floor((Math.random() * 5) + 1);
+   this.dir = Math.floor((Math.random() * 4) + 1);
 
-  render(xLoc, yLoc){
+  }
+
+  render(pLoc, cLoc){
    context.beginPath();
-   context.arc(xLoc, yLoc, this.radius, this.sAngle, this.eAngle, this.cClock);
+   context.arc(this.xloc, this.yloc, this.radius, this.sAngle, this.eAngle, this.cClock);
    context.fillStyle = "white";
    context.fill();
    context.lineWidth = 2;
    context.stroke();
+   this.move(pLoc, cLoc);
+ }
+
+ move(pLoc, cLoc){
+   switch (this.dir) {
+     case 1:
+        if(this.check_hit(pLoc, cLoc)){
+          this.xloc -= 3;
+          this.dir = 4;
+          break;
+        }
+        else if(this.yloc >= 515) {
+          this.dir = 3;
+          break;
+         }
+        else {
+          this.xloc += this.xvel;
+          this.yloc += this.yvel;
+          break;
+        }
+     case 2:
+         if(this.check_hit(pLoc, cLoc)){
+           this.xloc += 3;
+           this.dir = 3;
+           break;
+         }
+         else if(this.yloc <= 5) {
+          this.dir = 4;
+          break;
+        }
+        else {
+          this.xloc -= this.xvel;
+          this.yloc -= this.yvel;
+          break;
+        }
+    case 3:
+        if(this.check_hit(pLoc, cLoc)){
+          this.xloc -= 3;
+          this.dir = 2;
+          break;
+        }
+       else if(this.yloc <= 5) {
+         this.dir = 1;
+         break;
+       }
+       else {
+         this.xloc += this.xvel;
+         this.yloc -= this.yvel;
+         break;
+       }
+    case 4:
+      if(this.check_hit(pLoc, cLoc)){
+        this.xloc += 3;
+        this.dir = 1;
+        break;
+      }
+      else if(this.yloc >= 515) {
+        this.dir = 2;
+        break;
+      }
+      else {
+        this.xloc -= this.xvel;
+        this.yloc += this.yvel;
+        break;
+      }
+    default:
+       return;
+   }
+ }
+
+ check_hit(pLoc, cLoc){
+   if((this.xloc <= 50 && this.xloc >= 48 && this.yloc >= pLoc && this.yloc <= (pLoc + 50)) || (this.xloc >= 750 && this.yloc >= cLoc && this.yloc <= (cLoc + 50))){
+     return true;
+   }
  }
 };
 
@@ -42,7 +120,7 @@ class Paddle {
    this.width = width;
    this.xloc = xloc;
    this.yloc = yloc;
-   this.velocity = 15;
+   this.velocity = 20;
  }
  render(){
    context.drawImage(this.dom, this.xloc, this.yloc, this.height, this.width);
@@ -66,20 +144,20 @@ function render() {
 
       //draw the net
       context.beginPath();
-      context.moveTo(300, 0);
-      context.lineTo(300, 525);
+      context.moveTo(400, 0);
+      context.lineTo(400, 525);
       context.lineWidth = 10;
       context.stroke();
 
       //draw net holders
-      context.rect(290, 0, 20, 20);
+      context.rect(390, 0, 20, 20);
       context.fillStyle = 'red';
       context.fill();
       context.lineWidth = 4;
       context.strokeStyle = 'black';
       context.stroke();
 
-      context.rect(290, 505, 20, 20);
+      context.rect(390, 505, 20, 20);
       context.fillStyle = 'red';
       context.fill();
       context.lineWidth = 4;
@@ -89,16 +167,16 @@ function render() {
       //draw paddles
       player1.render();
       computer.render();
-      //draw computer paddle
-      gameBall.render(200, 200);
+      gameBall.render(player1.yloc, computer.yloc);
+
 
  }
 
 
 
-var gameBall = new Ball(200, 200, 10, 0, Math.PI * 2, false);
+var gameBall = new Ball(400, 300, 10, 0, Math.PI * 2, false);
 var player1 = new Paddle(50, 50, 0, 262);
-var computer = new Paddle(50, 50, 550, 262);
+var computer = new Paddle(50, 50, 750, 262);
 
 
 
