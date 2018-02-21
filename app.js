@@ -1,5 +1,9 @@
 const table = document.getElementById('table');
 var context = table.getContext('2d');
+var playerScore = 0;
+var showPlayerScore = document.getElementById('player-score');
+var computerScore = 0;
+var showComputerScore = document.getElementById('computer-score');
 
 
 window.addEventListener("keydown", function (event) {
@@ -23,8 +27,8 @@ class Ball {
    this.sAngle = sAngle;
    this.eAngle = eAngle;
    this.cClock = cClock;
-   this.xvel = Math.floor((Math.random() * 5) + 1);
-   this.yvel = Math.floor((Math.random() * 5) + 1);
+   this.xvel = Math.floor((Math.random() * 7) + 3);
+   this.yvel = Math.floor((Math.random() * 3) + 1);
    this.dir = Math.floor((Math.random() * 4) + 1);
 
   }
@@ -40,69 +44,85 @@ class Ball {
  }
 
  move(pLoc, cLoc){
-   switch (this.dir) {
-     case 1:
+   if(this.xloc <= 40){
+     this.xloc = 400;
+     this.yloc = 300;
+     this.dir = Math.floor((Math.random() * 4) + 1);
+     computerScore += 1;
+     return;
+   }
+   else if(this.xloc >= 760){
+     this.xloc = 400;
+     this.yloc = 300;
+     this.dir = Math.floor((Math.random() * 4) + 1);
+     playerScore += 1;
+     return;
+   }
+   else {
+     switch (this.dir) {
+       case 1:
+          if(this.check_hit(pLoc, cLoc)){
+            this.xloc -= 3;
+            this.dir = 4;
+            break;
+          }
+          else if(this.yloc >= 515) {
+            this.dir = 3;
+            break;
+           }
+          else {
+            this.xloc += this.xvel;
+            this.yloc += this.yvel;
+            break;
+          }
+       case 2:
+           if(this.check_hit(pLoc, cLoc)){
+             this.xloc += 3;
+             this.dir = 3;
+             break;
+           }
+           else if(this.yloc <= 5) {
+            this.dir = 4;
+            break;
+          }
+          else {
+            this.xloc -= this.xvel;
+            this.yloc -= this.yvel;
+            break;
+          }
+      case 3:
+          if(this.check_hit(pLoc, cLoc)){
+            this.xloc -= 3;
+            this.dir = 2;
+            break;
+          }
+         else if(this.yloc <= 5) {
+           this.dir = 1;
+           break;
+         }
+         else {
+           this.xloc += this.xvel;
+           this.yloc -= this.yvel;
+           break;
+         }
+      case 4:
         if(this.check_hit(pLoc, cLoc)){
-          this.xloc -= 3;
-          this.dir = 4;
+          this.xloc += 3;
+          this.dir = 1;
           break;
         }
         else if(this.yloc >= 515) {
-          this.dir = 3;
-          break;
-         }
-        else {
-          this.xloc += this.xvel;
-          this.yloc += this.yvel;
-          break;
-        }
-     case 2:
-         if(this.check_hit(pLoc, cLoc)){
-           this.xloc += 3;
-           this.dir = 3;
-           break;
-         }
-         else if(this.yloc <= 5) {
-          this.dir = 4;
+          this.dir = 2;
           break;
         }
         else {
           this.xloc -= this.xvel;
-          this.yloc -= this.yvel;
+          this.yloc += this.yvel;
           break;
         }
-    case 3:
-        if(this.check_hit(pLoc, cLoc)){
-          this.xloc -= 3;
-          this.dir = 2;
-          break;
-        }
-       else if(this.yloc <= 5) {
-         this.dir = 1;
-         break;
-       }
-       else {
-         this.xloc += this.xvel;
-         this.yloc -= this.yvel;
-         break;
-       }
-    case 4:
-      if(this.check_hit(pLoc, cLoc)){
-        this.xloc += 3;
-        this.dir = 1;
-        break;
-      }
-      else if(this.yloc >= 515) {
-        this.dir = 2;
-        break;
-      }
-      else {
-        this.xloc -= this.xvel;
-        this.yloc += this.yvel;
-        break;
-      }
-    default:
-       return;
+      default:
+         return;
+     }
    }
  }
 
@@ -137,10 +157,22 @@ class Paddle {
    this.yloc += this.velocity * x;
    }
  }
+
+ updateP(ballY, ballX) {
+    if(ballY >= (this.yloc + 50) && ballX >= 570) {
+      this.move(1);
+    }
+    else if(ballY <= this.yloc && ballX >= 570){
+      this.move(-1);
+    }
+
+ }
+
 };
 
 
 function render() {
+
 
       //draw the net
       context.beginPath();
@@ -166,8 +198,13 @@ function render() {
 
       //draw paddles
       player1.render();
+
       computer.render();
+      computer.updateP(gameBall.yloc, gameBall.xloc);
       gameBall.render(player1.yloc, computer.yloc);
+      showPlayerScore.innerHTML = "Good Guy: " + playerScore;
+      showComputerScore.innerHTML = "Bad Guy: " + computerScore;
+
 
 
  }
@@ -177,6 +214,7 @@ function render() {
 var gameBall = new Ball(400, 300, 10, 0, Math.PI * 2, false);
 var player1 = new Paddle(50, 50, 0, 262);
 var computer = new Paddle(50, 50, 750, 262);
+computer.velocity = 3;
 
 
 
@@ -187,6 +225,7 @@ var animate = window.requestAnimationFrame ||
 function step() {
   context.clearRect(0, 0, table.width,  table.height);
   render();
+
 
   animate(step);
 
