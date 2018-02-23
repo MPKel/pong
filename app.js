@@ -27,8 +27,8 @@ class Ball {
    this.sAngle = sAngle;
    this.eAngle = eAngle;
    this.cClock = cClock;
-   this.xvel = Math.floor((Math.random() * 7) + 3);
-   this.yvel = Math.floor((Math.random() * 3) + 1);
+   this.xvel = Math.floor((Math.random() * 3) + 2);
+   this.yvel = Math.floor((Math.random() * 2) + 1);
    this.dir = Math.floor((Math.random() * 4) + 1);
 
   }
@@ -44,14 +44,14 @@ class Ball {
  }
 
  move(pLoc, cLoc){
-   if(this.xloc <= 40){
+   if(this.xloc <= -30){
      this.xloc = 400;
      this.yloc = 300;
      this.dir = Math.floor((Math.random() * 4) + 1);
      computerScore += 1;
      return;
    }
-   else if(this.xloc >= 760){
+   else if(this.xloc >= 830){
      this.xloc = 400;
      this.yloc = 300;
      this.dir = Math.floor((Math.random() * 4) + 1);
@@ -127,20 +127,20 @@ class Ball {
  }
 
  check_hit(pLoc, cLoc){
-   if((this.xloc <= 50 && this.xloc >= 48 && this.yloc >= pLoc && this.yloc <= (pLoc + 50)) || (this.xloc >= 750 && this.yloc >= cLoc && this.yloc <= (cLoc + 50))){
+   if((this.xloc <= 50 && this.xloc >= 48 && this.yloc >= (pLoc - 5) && this.yloc <= (pLoc + 55)) || (this.xloc >= 750 && this.xloc <= 752 && this.yloc >= (cLoc - 5) && this.yloc <= (cLoc + 55) )){
      return true;
    }
  }
 };
 
 class Paddle {
- constructor(height, width, xloc, yloc) {
-   this.dom = document.getElementById("paddle");
+ constructor(height, width, xloc, yloc, id) {
+   this.dom = document.getElementById(id);
    this.height = height;
    this.width = width;
    this.xloc = xloc;
    this.yloc = yloc;
-   this.velocity = 20;
+   this.velocity = 25;
  }
  render(){
    context.drawImage(this.dom, this.xloc, this.yloc, this.height, this.width);
@@ -159,10 +159,10 @@ class Paddle {
  }
 
  updateP(ballY, ballX) {
-    if(ballY >= (this.yloc + 50) && ballX >= 570) {
+    if(ballY >= (this.yloc + 50) && ballX >= 548) {
       this.move(1);
     }
-    else if(ballY <= this.yloc && ballX >= 570){
+    else if(ballY <= this.yloc && ballX >= 548){
       this.move(-1);
     }
 
@@ -212,8 +212,8 @@ function render() {
 
 
 var gameBall = new Ball(400, 300, 10, 0, Math.PI * 2, false);
-var player1 = new Paddle(50, 50, 0, 262);
-var computer = new Paddle(50, 50, 750, 262);
+var player1 = new Paddle(50, 50, 0, 262, "paddle1");
+var computer = new Paddle(50, 50, 750, 262, "paddle");
 computer.velocity = 3;
 
 

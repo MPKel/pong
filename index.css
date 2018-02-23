@@ -7,6 +7,9 @@
  #paddle {
   visibility: hidden;
 }
+  #paddle1 {
+   visibility: hidden;
+ }
 
 .header{
   width: 500px;
