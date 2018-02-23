@@ -5,6 +5,10 @@ var showPlayerScore = document.getElementById('player-score');
 var computerScore = 0;
 var showComputerScore = document.getElementById('computer-score');
 
+var winnerMessage = document.getElementById('game-message');
+var winnerDiv = document.getElementById('game-over');
+var resetBtn = document.getElementById('reset');
+
 
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
@@ -48,6 +52,8 @@ class Ball {
      this.xloc = 400;
      this.yloc = 300;
      this.dir = Math.floor((Math.random() * 4) + 1);
+     this.xvel = Math.floor((Math.random() * 3) + 2);
+     this.yvel = Math.floor((Math.random() * 2) + 1);
      computerScore += 1;
      return;
    }
@@ -55,6 +61,8 @@ class Ball {
      this.xloc = 400;
      this.yloc = 300;
      this.dir = Math.floor((Math.random() * 4) + 1);
+     this.xvel = Math.floor((Math.random() * 3) + 2);
+     this.yvel = Math.floor((Math.random() * 2) + 1);
      playerScore += 1;
      return;
    }
@@ -202,8 +210,8 @@ function render() {
       computer.render();
       computer.updateP(gameBall.yloc, gameBall.xloc);
       gameBall.render(player1.yloc, computer.yloc);
-      showPlayerScore.innerHTML = "Good Guy: " + playerScore;
-      showComputerScore.innerHTML = "Bad Guy: " + computerScore;
+      showPlayerScore.innerHTML = "Player One: " + playerScore;
+      showComputerScore.innerHTML = "Evil AI: " + computerScore;
 
 
 
@@ -216,7 +224,17 @@ var player1 = new Paddle(50, 50, 0, 262, "paddle1");
 var computer = new Paddle(50, 50, 750, 262, "paddle");
 computer.velocity = 3;
 
-
+function resetGame(){
+    playerScore = 0;
+    computerScore = 0;
+    winnerDiv.style.visibility = 'hidden';
+    gameBall.xloc = 400;
+    gameBall.yloc = 300;
+    gameBall.xvel = Math.floor((Math.random() * 3) + 2);
+    gameBall.yvel = Math.floor((Math.random() * 2) + 1);
+    gameBall.dir = Math.floor((Math.random() * 4) + 1);
+    animate(step);
+}
 
 var animate = window.requestAnimationFrame ||
               function(callback) { window.setTimeout(callback, 1000/60) };
@@ -226,9 +244,20 @@ function step() {
   context.clearRect(0, 0, table.width,  table.height);
   render();
 
+  if(playerScore >= 11 || computerScore >= 11) {
+    if(playerScore > computerScore) {
+      winnerMessage.innerHTML = "You Win!!!";
+    }
+    else{
+      winnerMessage.innerHTML = "You Lose!";
+    }
+    winnerDiv.style.visibility = 'visible';
+    resetBtn.onclick = function(){resetGame()};
+  }
+  else {
 
-  animate(step);
-
+   animate(step);
+ }
 }
 
 

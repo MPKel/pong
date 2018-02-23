@@ -1,5 +1,4 @@
 #table {
-
   border: 3px solid black;
   background-color: rgb(32, 247, 128);
 }
@@ -10,6 +9,30 @@
   #paddle1 {
    visibility: hidden;
  }
+
+ #game-over {
+   position: fixed;
+   left: 37%;
+   top: 30vw;
+   background-color: white;
+   border: 3px solid red;
+   border-radius: 7px;
+   width: 300px;
+   box-shadow: 2px 2px 2px black;
+   text-align: center;
+   visibility: hidden;
+}
+
+#reset {
+  background-color: lightblue;
+  border-radius: 7px;
+  font-size: 15px;
+}
+#reset:hover {
+  background-color: blue;
+  color: white;
+
+}
 
 .header{
   width: 500px;
