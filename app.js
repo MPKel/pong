@@ -244,7 +244,7 @@ function step() {
   context.clearRect(0, 0, table.width,  table.height);
   render();
 
-  if(playerScore >= 11 || computerScore >= 11) {
+  if(playerScore >= 2 || computerScore >= 2) {
     if(playerScore > computerScore) {
       winnerMessage.innerHTML = "You Win!!!";
     }
