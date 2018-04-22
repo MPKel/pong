@@ -2,16 +2,19 @@
    <head>
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Pong</title>
+     <link href="https://fonts.googleapis.com/css?family=Audiowide|Monoton|Press+Start+2P|Yeon+Sung" rel="stylesheet">
      <link rel="stylesheet" type="text/css" href="index.css">
    </head>
    <body>
      <div class="header">
        <h1>PONG</h1>
        <h3 id="player-score"></h3>
+       <span class="vs">||</span>
        <h3 id="computer-score"></h3>
      </div>
 
      <div id="game-over">
+       <h1 class="game-over__title">GAME OVER</h1>
        <h1 id="game-message"></h1>
        <button id="reset" type="button">Play Again</button>
      </div>
@@ -21,7 +24,7 @@
      <img id="paddle1" src="images/paddle1.png" alt="ping pong paddle" width="50" height="50">
 
      <div class="play-field">
-       <canvas id="table" width="800" height="525"></canvas>
+       <canvas id="table" width="800" height="525" class="table__play"></canvas>
     </div>
 
 

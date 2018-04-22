@@ -210,8 +210,8 @@ function render() {
       computer.render();
       computer.updateP(gameBall.yloc, gameBall.xloc);
       gameBall.render(player1.yloc, computer.yloc);
-      showPlayerScore.innerHTML = "Player One: " + playerScore;
-      showComputerScore.innerHTML = "Evil AI: " + computerScore;
+      showPlayerScore.innerHTML = "Player: <span class='numScore'>" + playerScore + '</span>';
+      showComputerScore.innerHTML = "Evil AI: <span class='numScore'> " + computerScore + '</span>';
 
 
 

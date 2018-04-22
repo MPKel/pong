@@ -1,32 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 40px;
+  background-image: url('images/crowd2.jpg');
+  background-position: left 0% top 0%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
 #table {
   border: 3px solid black;
   background-color: rgb(32, 247, 128);
 }
 
  #paddle {
-  visibility: hidden;
+  display: none;
 }
   #paddle1 {
-   visibility: hidden;
+   display: none;
  }
 
  #game-over {
    position: fixed;
-   left: 37%;
-   top: 30vw;
-   background-color: white;
+   left: 40vw;
+   top: 35vw;
+   background-color: red;
    border: 3px solid red;
    border-radius: 7px;
-   width: 300px;
+   width: 20vw;
+   height: 20vh;
    box-shadow: 2px 2px 2px black;
    text-align: center;
    visibility: hidden;
 }
+ .game-over__title {
+   font-family: 'Press Start 2P', cursive;
+   margin-bottom: 0;
+   border-bottom: 3px solid black;
+ }
+
+ #game-message {
+   margin-top: 10px;
+   font-family: 'Audiowide', cursive;
+   color: #e8e7ef;
+ }
 
 #reset {
-  background-color: lightblue;
+  background-color: black;
+  padding: 5px;
+  color: white;
   border-radius: 7px;
-  font-size: 15px;
+  font-size: 24px;
 }
 #reset:hover {
   background-color: blue;
@@ -38,14 +65,33 @@
   width: 500px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid black;
+  border: 3px solid white;
+  padding: 12px;
+  padding-left: 0;
   border-radius: 10px;
-  background-color: lightblue;
+  background: linear-gradient(to right, blue, gray);
   text-align: center;
+}
+
+.header h1 {
+  font-family: 'Monoton', cursive;
+  font-size: 60px;
+  color: red;
+  text-shadow: 2px 2px 2px black;
 
 }
 
+.header h3 {
+  font-family: 'Audiowide', cursive;
+  color: white;
+  font-size: 25px;
+  background-color: black;
+  border-radius: 10px;
+  padding: 4px;
+}
+
 .play-field{
+  margin-top: 30px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -53,10 +99,26 @@
   text-align: center;
 }
 
+.table__play {
+  margin: auto;
+}
+.vs {
+  font-size: 30px;
+  color: white
+
+}
+
 #player-score {
   display: inline;
-  margin-right: 200px;
+
 }
 #computer-score {
   display: inline;
+
+
+}
+
+.numScore {
+  color: red;
+  text-shadow: 1px 1px 1px white;
 }
