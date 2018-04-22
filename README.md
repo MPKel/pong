@@ -1,6 +1,6 @@
 # Pong
 
-## A pong recreation using the the HTML `<canvas>` element and JavaScript.
+## A pong recreation using the HTML `<canvas>` element and JavaScript.
 
 ![Pong in play](/images/gameOn.png)
 
