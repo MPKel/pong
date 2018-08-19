@@ -4,7 +4,7 @@
   "description": "a basic pong clone",
   "main": "index.html",
   "scripts": {
-    "start": "node app.js",
+    "start": "node --version",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
