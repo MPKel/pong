@@ -2,6 +2,8 @@
   box-sizing: border-box;
 }
 
+
+
 body {
   padding: 40px;
   background-image: url('images/crowd2.jpg');
@@ -9,6 +11,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-origin: border-box;
+  overflow: hidden;
 }
 
 #table {

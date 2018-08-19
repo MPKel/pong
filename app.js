@@ -13,15 +13,45 @@ var resetBtn = document.getElementById('reset');
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "ArrowDown":
-      player1.move(1);
+      player1.move(8);
       break;
     case "ArrowUp":
-      player1.move(-1);
+      player1.move(-8);
       break;
    default:
       return;
   }
 });
+
+
+window.addEventListener("keyup", function (event) {
+  switch (event.key) {
+    case "ArrowDown":
+      player1.move(0);
+      break;
+    case "ArrowUp":
+      player1.move(0);
+      break;
+   default:
+      return;
+  }
+});
+
+
+window.setInterval(function slideMove() {
+ player1.yloc += player1.velocity;
+  if (player1.yloc <= -3) {
+   player1.yloc = -3;
+  }
+  if (player1.yloc >= 510) {
+   player1.yloc = 510;
+  }
+}, 1000/60);
+
+
+
+
+
 
 class Ball {
  constructor(xloc, yloc, radius, sAngle, eAngle, cClock) {
@@ -62,7 +92,7 @@ class Ball {
      this.yloc = 300;
      this.dir = Math.floor((Math.random() * 4) + 1);
      this.xvel = Math.floor((Math.random() * 3) + 2);
-     this.yvel = Math.floor((Math.random() * 2) + 1);
+     this.yvel = Math.floor((Math.random() * 2) + 2);
      playerScore += 1;
      return;
    }
@@ -135,7 +165,7 @@ class Ball {
  }
 
  check_hit(pLoc, cLoc){
-   if((this.xloc <= 50 && this.xloc >= 48 && this.yloc >= (pLoc - 5) && this.yloc <= (pLoc + 55)) || (this.xloc >= 750 && this.xloc <= 752 && this.yloc >= (cLoc - 5) && this.yloc <= (cLoc + 55) )){
+   if((this.xloc <= 50 && this.xloc >= 48 && this.yloc >= (pLoc - 10) && this.yloc <= (pLoc + 60)) || (this.xloc >= 750 && this.xloc <= 752 && this.yloc >= (cLoc - 10) && this.yloc <= (cLoc + 60) )){
      return true;
    }
  }
@@ -148,13 +178,17 @@ class Paddle {
    this.width = width;
    this.xloc = xloc;
    this.yloc = yloc;
-   this.velocity = 25;
+   this.velocity = 0;
  }
  render(){
    context.drawImage(this.dom, this.xloc, this.yloc, this.height, this.width);
  }
 
  move(x){
+   this.velocity = x;
+ }
+
+ moveBot(x) {
    if(this.yloc <= 10){
      this.yloc += 3;
    }
@@ -168,10 +202,10 @@ class Paddle {
 
  updateP(ballY, ballX) {
     if(ballY >= (this.yloc + 50) && ballX >= 548) {
-      this.move(1);
+      this.moveBot(1);
     }
     else if(ballY <= this.yloc && ballX >= 548){
-      this.move(-1);
+      this.moveBot(-1);
     }
 
  }
