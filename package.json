@@ -4,7 +4,6 @@
   "description": "a basic pong clone",
   "main": "index.html",
   "scripts": {
-    "start": "node --version",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MPKel/pong/issues"
   },
-  "homepage": "https://github.com/MPKel/pong#readme"
+  "homepage": "https://github.com/MPKel/pong#readme",
+  "keywords": [
+    "pong"
+  ]
 }
