@@ -1,10 +1,9 @@
 {
   "name": "pong",
   "version": "1.0.0",
-  "description": "a basic pong clone",
-  "main": "index.html",
+  "description": "pong clone",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
